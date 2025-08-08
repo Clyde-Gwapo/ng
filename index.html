@@ -9,65 +9,66 @@
             margin: 0;
             padding: 0;
         }
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px 30px 30px 30px;
-            border: 2px solid #ccc;
-            background-color: #007BFF; /* Blue container background */
-            border-radius: 10px;
-            color: white; /* Make text white for contrast */
-        }
         h2 {
             text-align: center;
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: white; /* Title in white */
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 15px;
+            border: 2px solid #ccc;
+            background-color: #007BFF; /* blue background inside container */
+            border-radius: 10px;
+        }
+        .container * {
+            font-family: Arial, sans-serif;
         }
         .page-section {
-            margin: 15px auto;
-            padding: 10px;
+            margin: 10px auto;
+            padding: 8px;
             background: #e9e9e9;
             border-radius: 5px;
             max-width: 90%;
         }
         label {
             display: block;
-            margin-top: 10px;
+            margin-top: 6px;
             font-weight: bold;
+            font-size: 13px; /* smaller label font */
+            color: black;
         }
         input, textarea, select {
             width: 100%;
-            padding: 5px;
-            margin-top: 5px;
+            padding: 4px; /* smaller padding */
+            margin-top: 4px;
+            font-size: 12px; /* reduced font size */
             box-sizing: border-box;
             border-radius: 3px;
             border: 1px solid #ccc;
-            background: white; /* Keep input backgrounds white for readability */
-            color: black;
         }
         button {
-            background-color: white;
-            color: #007BFF;
-            border: none;
-            padding: 8px 12px;
-            cursor: pointer;
-            margin-top: 10px;
-            border-radius: 3px;
-            font-weight: bold;
-        }
-        button:hover {
             background-color: #0056b3;
             color: white;
+            border: none;
+            padding: 6px 10px; /* smaller button padding */
+            font-size: 12px; /* smaller button font */
+            cursor: pointer;
+            margin-top: 8px;
+            border-radius: 3px;
+        }
+        button:hover {
+            background-color: #003f80;
         }
         #output {
             white-space: pre-wrap;
             background: #fff;
-            color: black;
-            padding: 15px;
+            padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
-            margin-top: 20px;
+            margin-top: 15px;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -171,3 +172,4 @@
     </script>
 </body>
 </html>
+
