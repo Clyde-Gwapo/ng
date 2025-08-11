@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Notes Generator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -87,14 +86,13 @@
         .page-section {
             margin: 5px auto;
             padding: 5px;
-            background: #e9e9e9;
+            background: #000000;
             border-radius: 5px;
             max-width: 100%;
         }
     </style>
 </head>
 <body>
-    <h2>NOTES GENERATOR</h2>
     <div class="container">
         
         <div class="form-row">
@@ -228,3 +226,4 @@
     </script>
 </body>
 </html>
+
