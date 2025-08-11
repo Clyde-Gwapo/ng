@@ -11,71 +11,65 @@
         }
         h2 {
             text-align: center;
-            margin-top: 10px;
-            font-size: 18px;
+            margin-top: 20px;
         }
         .container {
             max-width: 800px;
             margin: auto;
-            padding: 15px;
+            padding: 20px;
             border: 2px solid #ccc;
-            background-color: #007BFF; /* blue background inside container */
+            background-color: #007BFF; /* Blue background inside container */
             border-radius: 10px;
-        }
-        .container * {
-            font-family: Arial, sans-serif;
+            color: white; /* Make text readable */
         }
         .page-section {
-            margin: 10px auto;
-            padding: 8px;
+            margin: 15px auto;
+            padding: 10px;
             background: #e9e9e9;
             border-radius: 5px;
             max-width: 90%;
+            color: black;
         }
         label {
             display: block;
-            margin-top: 6px;
+            margin-top: 10px;
             font-weight: bold;
-            font-size: 9px; /* smaller label font */
-            color: black;
         }
         input, textarea, select {
             width: 100%;
-            padding: 4px; /* smaller padding */
-            margin-top: 4px;
-            font-size: 9px; /* reduced font size */
+            padding: 5px;
+            margin-top: 5px;
             box-sizing: border-box;
             border-radius: 3px;
             border: 1px solid #ccc;
+            font-size: 14px;
         }
         button {
             background-color: #0056b3;
             color: white;
             border: none;
-            padding: 6px 10px; /* smaller button padding */
-            font-size: 19px; /* smaller button font */
+            padding: 8px 12px;
             cursor: pointer;
-            margin-top: 8px;
+            margin-top: 10px;
             border-radius: 3px;
         }
         button:hover {
-            background-color: #003f80;
+            background-color: #003d80;
         }
         #output {
             white-space: pre-wrap;
             background: #fff;
-            padding: 10px;
+            color: black;
+            padding: 15px;
             border-radius: 5px;
             border: 1px solid #ccc;
-            margin-top: 15px;
-            font-size: 12px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+    <h2>NOTES GENERATOR</h2>
     <div class="container">
-        <h2>NOTES GENERATOR</h2>
-
         <label for="cid">CID</label>
         <input type="text" id="cid">
 
@@ -144,6 +138,11 @@
             const action = document.getElementById('action').value.trim();
             const osad = document.getElementById('osad').value.trim();
 
+            const formatList = (text) => text
+                .split('\n')
+                .map(line => `   - ${line}`)
+                .join('\n');
+
             let note = `**CID:** ${cid}\n` +
                        `**CPROD:** ${cprod}\n` +
                        `**PHONE NUMBER:** ${phone}\n` +
@@ -151,12 +150,12 @@
                        `**DOMAIN:** ${domain}\n` +
                        `**AUTH:** ${auth}\n` +
                        `**ISSUE:** ${issue}\n` +
-                       `**ACTION TAKEN/ MODIFICATIONS**\n       ${action.split('\n').join('\n       ')}`;
+                       `**ACTION TAKEN/ MODIFICATIONS**\n${formatList(action)}`;
 
             document.querySelectorAll('.page-section').forEach(sec => {
                 const pageName = sec.querySelector('.page-name').value.trim();
                 const mods = sec.querySelector('.page-mods').value.trim();
-                note += `\n**PAGE:** ${pageName}\n**MODIFICATIONS**\n       ${mods.split('\n').join('\n       ')}`;
+                note += `\n**PAGE:** ${pageName}\n**MODIFICATIONS**\n${formatList(mods)}`;
             });
 
             note += `\n**OSAD:** ${osad}`;
@@ -172,5 +171,3 @@
     </script>
 </body>
 </html>
-
-
