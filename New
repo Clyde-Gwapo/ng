@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+            padding: 10px;
+            border: 2px solid #ccc;
+            background-color: #100c08;
+            border-radius: 10px;
+            color: white;
+        }
+        .left-panel, .right-panel {
+            flex: 1;
+        }
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px; /* added spacing between rows */
+        }
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 4px; /* spacing between groups */
+        }
+        label {
+            display: block;
+            margin-bottom: 2px; /* spacing under labels */
+            font-weight: bold;
+            color: white;
+            font-size: 16px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 4px;
+            margin-top: 2px;
+            box-sizing: border-box;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            font-size: 12px;
+        }
+        textarea {
+            min-height: 50px;
+            margin-bottom: 10px; /* spacing under labels */
+        }
+        button {
+            background-color: gray;
+            color: #ffffff;
+            border: 10px;
+            padding: 6px 10px;
+            cursor: pointer;
+            margin-top: 2px;
+            margin-bottom: 14px; /* spacing under labels */
+            border-radius: 3px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #059033;
+        }
+        #output {
+            white-space: pre-wrap;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            color: black;
+            font-size: 12px;
+            position: relative;
+            height: 600px;
+            overflow-y: auto;
+        }
+        #copied-msg {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #28a745;
+            color: white;
+            padding: 2px 6px;
+            font-size: 10px;
+            border-radius: 3px;
+            display: none;
+        }
+        .page-section {
+            margin: 2px auto; /* extra spacing between sections */
+            padding: 2px;
+            background: #000000;
+            border-radius: 5px;
+            max-width: 100%;
+        }
+        .page-section label {
+            margin-bottom: 6px; /* spacing inside page-section */
+        }
+        .page-section input,
+        .page-section textarea {
+            margin-bottom: 12px; /* spacing below inputs in page-section */
+        }
+        /* ✅ Added spacing under OSAD dropdown */
+        .form-group select#osad {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel (Form) -->
+        <div class="left-panel">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cid">CID</label>
+                    <input type="text" id="cid">
+                </div>
+                <div class="form-group">
+                    <label for="cprod">CPROD</label>
+                    <input type="text" id="cprod">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone">
+                </div>
+                <div class="form-group">
+                    <label for="caller">Caller Name</label>
+                    <input type="text" id="caller">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="domain">Domain</label>
+                    <input type="text" id="domain">
+                </div>
+                <div class="form-group">
+                    <label for="auth">Auth</label>
+                    <select id="auth">
+                        <option value="">Choose</option>
+                        <option value="YES">YES</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="issue">Issue</label>
+                <textarea id="issue"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="action">Action Taken / Modifications</label>
+                <textarea id="action"></textarea>
+            </div>
+
+            <div id="pages"></div>
+            <button type="button" onclick="addPage()">+ Add Page</button>
+
+            <div class="form-group">
+                <label for="osad">OSAD</label>
+                <select id="osad">
+                    <option value="">Choose</option>
+                    <option value="YES">YES</option>
+                    <option value="N/A">N/A</option>
+                </select>
+            </div>
+
+            <button type="button" onclick="generateNote()">Generate & Copy Note</button>
+            <button type="button" onclick="resetForm()">Reset</button>
+        </div>
+
+        <!-- Right Panel (Completed Notes) -->
+        <div class="right-panel">
+            <div id="output">
+                <div id="copied-msg">Copied!</div>
+                Notes will appear here...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addPage() {
+            const pageSection = document.createElement('div');
+            pageSection.classList.add('page-section');
+            pageSection.innerHTML = `
+                <label>Page</label>
+                <input type="text" class="page-name">
+                <label>Modifications</label>
+                <textarea class="page-mods"></textarea>
+            `;
+            document.getElementById('pages').appendChild(pageSection);
+        }
+
+        function generateNote() {
+            const cid = document.getElementById('cid').value.trim();
+            const cprod = document.getElementById('cprod').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const caller = document.getElementById('caller').value.trim();
+            const domain = document.getElementById('domain').value.trim();
+            const auth = document.getElementById('auth').value.trim();
+            const issue = document.getElementById('issue').value.trim();
+            const action = document.getElementById('action').value.trim();
+            const osad = document.getElementById('osad').value.trim();
+
+            let note = `**CID:** ${cid}\n` +
+                       `**CPROD:** ${cprod}\n` +
+                       `**PHONE NUMBER:** ${phone}\n` +
+                       `**CALLER NAME:** ${caller}\n` +
+                       `**DOMAIN:** ${domain}\n` +
+                       `**AUTH:** ${auth}\n` +
+                       `**ISSUE:** ${issue}\n` +
+                       `**ACTION TAKEN / MODIFICATIONS**\n     – ${action.split('\n').join('\n     – ')}`;
+
+            document.querySelectorAll('.page-section').forEach(sec => {
+                const pageName = sec.querySelector('.page-name').value.trim();
+                const mods = sec.querySelector('.page-mods').value.trim();
+                if (pageName || mods) {
+                    note += `\n**PAGE:** ${pageName}\n**MODIFICATIONS**\n     – ${mods.split('\n').join('\n     – ')}`;
+                }
+            });
+
+            note += `\n**OSAD:** ${osad}`;
+
+            // Show in output box
+            const output = document.getElementById('output');
+            output.textContent = note;
+
+            // Copy to clipboard + show "Copied!" message
+            navigator.clipboard.writeText(note).then(() => {
+                const copiedMsg = document.getElementById('copied-msg');
+                copiedMsg.style.display = 'inline';
+                setTimeout(() => copiedMsg.style.display = 'none', 1500);
+            });
+        }
+
+        function resetForm() {
+            document.querySelectorAll('input, textarea, select').forEach(el => {
+                el.value = '';
+            });
+            document.getElementById('pages').innerHTML = '';
+            document.getElementById('output').textContent = 'Notes will appear here...';
+        }
+    </script>
+</body>
+</html>
